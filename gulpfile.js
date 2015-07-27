@@ -5,7 +5,8 @@ var gulp        = require('gulp'),
     gutil       = require('gulp-util'),
     coffee      = require('gulp-coffee'),
     jade        = require('gulp-jade'),
-    browserSync = require('browser-sync');
+    browserSync = require('browser-sync'),
+    ghPages     = require('gulp-gh-pages');
 
 var paths = {
   sass              : './src/sass/*.scss',
@@ -54,6 +55,11 @@ gulp.task('watch', function(){
   gulp.watch(paths.sass,    ['sass']);
   gulp.watch(paths.coffee,  ['coffee']);
   gulp.watch(paths.jade,    ['jade']);
+});
+
+gulp.task('deploy', function() {
+  gulp.src('./build/**/*')
+      .pipe(ghPages());
 });
 
 gulp.task('default', ['copy', 'compile', 'server', 'watch']);
