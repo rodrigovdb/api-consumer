@@ -8,28 +8,26 @@ var gulp        = require('gulp'),
     browserSync = require('browser-sync');
 
 var paths = {
-  jquery            : './node_modules/jquery/dist/jquery.min.js',
-  fontawesome_css   :  './node_modules/font-awesome/scss/font-awesome.scss',
-  fontawesome_font  : './node_modules/font-awesome/fonts/*',
-
   sass              : './src/sass/*.scss',
   coffee            : './src/coffee/*.coffee',
-  jade              : './src/jade/*.jade'
+  jade              : './src/jade/*.jade',
+
+  images            : './src/images/*'
 }
 
-gulp.task('sass', function() {
+gulp.task('sass', function(){
     gulp.src(paths.sass)
         .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
         .pipe(gulp.dest('./build/css/'));
 });
 
-gulp.task('coffee', function() {
+gulp.task('coffee', function(){
   gulp.src(paths.coffee)
       .pipe(coffee({bare: true}).on('error', gutil.log))
       .pipe(gulp.dest('./build/js/'))
 });
 
-gulp.task('jade', function() {
+gulp.task('jade', function(){
   var YOUR_LOCALS = {};
 
   gulp.src(paths.jade)
@@ -37,6 +35,12 @@ gulp.task('jade', function() {
       .pipe(gulp.dest('./build/'))
 });
 
+gulp.task('images', function () {
+  gulp.src(paths.images)
+      .pipe(gulp.dest('./build/img'));
+});
+
+gulp.task('copy', ['images']);
 gulp.task('compile', ['sass', 'coffee', 'jade']);
 
 gulp.task('server', function () {
@@ -52,4 +56,4 @@ gulp.task('watch', function(){
   gulp.watch(paths.jade,    ['jade']);
 });
 
-gulp.task('default', ['compile', 'server', 'watch']);
+gulp.task('default', ['copy', 'compile', 'server', 'watch']);

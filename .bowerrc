@@ -1,4 +1,4 @@
 {
-  "directory": "src/components/",
+  "directory": "build/components/",
   "analytics": false
 }
