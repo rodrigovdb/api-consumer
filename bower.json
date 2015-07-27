@@ -1,0 +1,23 @@
+{
+  "name": "frontend_stuffs",
+  "version": "0.0.0",
+  "homepage": "https://github.com/rodrigovdb/frontend_stuffs",
+  "authors": [
+    "Rodrigo Otavio van den Berg Maia <rodrigo@ladodireito.com>"
+  ],
+  "description": "Frontent things",
+  "moduleType": [
+    "node"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "build/components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.1.4"
+  }
+}
