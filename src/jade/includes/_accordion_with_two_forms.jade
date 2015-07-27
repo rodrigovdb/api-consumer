@@ -1,0 +1,36 @@
+#accordion.panel-group(role='tablist', aria-multiselectable='true')
+  .panel.panel-default
+    #headingOne.panel-heading(role='tab')
+      h4.panel-title
+        a(role='button', data-toggle='collapse', data-parent='#accordion', href='#collapseOne', aria-expanded='true', aria-controls='collapseOne') Send a file to API
+
+    #collapseOne.panel-collapse.collapse.in(role='tabpanel', aria-labelledby='headingOne')
+      .panel-body
+        form#file_form.form-horizontal(name='file_form', action='#', method='POST', enctype='multipart/form-data')
+          .form-group
+            label.col-sm-2.control-label(for='inputEmail3') Image file
+
+            .col-sm-10
+              input#file.form-control(type='file', name='file')
+
+          .form-group
+            .col-sm-offset-2.col-sm-10
+              button#send_request.btn.btn-primary(type='submit') Send
+
+  .panel.panel-default
+    #headingTwo.panel-heading(role='tab')
+      h4.panel-title
+        a.collapsed(role='button', data-toggle='collapse', data-parent='#accordion', href='#collapseTwo', aria-expanded='false', aria-controls='collapseTwo') Send an URL to API
+
+    #collapseTwo.panel-collapse.collapse(role='tabpanel', aria-labelledby='headingTwo')
+      .panel-body
+        form#url_form.form-horizontal(name='url_form', action='#', method='POST')
+          .form-group
+            label.col-sm-2.control-label(for='inputEmail3') Image URL
+
+            .col-sm-10
+              input#imageUrl.form-control(type='text', name='imageUrl')
+
+          .form-group
+            .col-sm-offset-2.col-sm-10
+              button#send_request.btn.btn-primary(type='submit') Send

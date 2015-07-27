@@ -52,9 +52,9 @@ gulp.task('server', function () {
 });
 
 gulp.task('watch', function(){
-  gulp.watch(paths.sass,    ['sass']);
-  gulp.watch(paths.coffee,  ['coffee']);
-  gulp.watch(paths.jade,    ['jade']);
+  gulp.watch(paths.sass,                ['sass']);
+  gulp.watch(paths.coffee,              ['coffee']);
+  gulp.watch('./src/jade/**/*.jade',    ['jade']);
 });
 
 gulp.task('deploy', ['compile'], function() {

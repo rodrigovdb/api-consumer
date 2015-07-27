@@ -6,70 +6,14 @@ block content
     .col-md-8
       h1 My API Client
 
-      .row(style="margin-bottom: 5px")
-        .form-group
-          label.col-sm-2.control-label(for="url") API URL
-          .col-sm-7
-            input.form-control(type="text", id="url", name="url")
+      include includes/_request_destination.jade
+      include includes/_request_header_params.jade
+      include includes/_accordion_with_two_forms.jade
 
-          label.col-sm-2.control-label(for="url") Request Method
-          .col-sm-1
-            select(id="method", name="method")
-              option(value="GET") GET
-              option(value="POST") POST
-              option(value="PUT") PUT
+      #response.panel-footer(style='display: none')
+      #loading(style='text-align: center; display: none')
+        h4 Loading... just wait
 
-      .row(style="margin-bottom: 5px")
-        .form-group
-          label.col-sm-2.control-label(for="token") API Token
-          .col-sm-4
-            input.form-control(type="text", id="token", name="token")
-          label.col-sm-2.control-label(for="accept_version") API Accept-Version
-          .col-sm-4
-            input.form-control(type="text", id="accept_version", name="accept_version", value="v1")
+        img(src='img/clipboard31.gif')
 
-      #accordion.panel-group(role='tablist', aria-multiselectable='true')
-        .panel.panel-default
-          #headingOne.panel-heading(role='tab')
-            h4.panel-title
-              a(role='button', data-toggle='collapse', data-parent='#accordion', href='#collapseOne', aria-expanded='true', aria-controls='collapseOne') Send a file to API
-
-          #collapseOne.panel-collapse.collapse.in(role='tabpanel', aria-labelledby='headingOne')
-            .panel-body
-              form#file_form.form-horizontal(name='file_form', action='#', method='POST', enctype='multipart/form-data')
-                .form-group
-                  label.col-sm-2.control-label(for='inputEmail3') Image file
-
-                  .col-sm-10
-                    input#file.form-control(type='file', name='file')
-
-                .form-group
-                  .col-sm-offset-2.col-sm-10
-                    button#send_request.btn.btn-primary(type='submit') Send
-
-        .panel.panel-default
-          #headingTwo.panel-heading(role='tab')
-            h4.panel-title
-              a.collapsed(role='button', data-toggle='collapse', data-parent='#accordion', href='#collapseTwo', aria-expanded='false', aria-controls='collapseTwo') Send an URL to API
-
-          #collapseTwo.panel-collapse.collapse(role='tabpanel', aria-labelledby='headingTwo')
-            .panel-body
-              form#url_form.form-horizontal(name='url_form', action='#', method='POST')
-                .form-group
-                  label.col-sm-2.control-label(for='inputEmail3') Image URL
-
-                  .col-sm-10
-                    input#imageUrl.form-control(type='text', name='imageUrl')
-
-                .form-group
-                  .col-sm-offset-2.col-sm-10
-                    button#send_request.btn.btn-primary(type='submit') Send
-
-          #response.panel-footer(style='display: none')
-
-        #loading(style='text-align: center; display: none')
-          h4 Loading... just wait
-
-          img(src='img/clipboard31.gif')
-
-      .col-md-2
+    .col-md-2
