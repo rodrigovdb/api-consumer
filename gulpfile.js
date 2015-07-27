@@ -57,7 +57,7 @@ gulp.task('watch', function(){
   gulp.watch(paths.jade,    ['jade']);
 });
 
-gulp.task('deploy', function() {
+gulp.task('deploy', ['compile'], function() {
   gulp.src('./build/**/*')
       .pipe(ghPages());
 });
