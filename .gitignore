@@ -1,4 +1,5 @@
 .vagrant/
+.publish/
 node_modules/
 src/components/
 build/

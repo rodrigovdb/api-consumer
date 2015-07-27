@@ -58,8 +58,8 @@ gulp.task('watch', function(){
 });
 
 gulp.task('deploy', ['compile'], function() {
-  gulp.src('./build/**/*')
-      .pipe(ghPages());
+  return gulp.src('./build/**/*')
+             .pipe(ghPages());
 });
 
 gulp.task('default', ['copy', 'compile', 'server', 'watch']);
