@@ -1,0 +1,1 @@
+restfull  = angular.module('restfull', [])

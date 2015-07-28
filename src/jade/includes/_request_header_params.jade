@@ -1,12 +1,22 @@
-.panel.panel-default(ng-app="request_header", ng-controller="RequestHeaderController as rc")
+.panel.panel-default(ng-controller="RequestHeader")
   .panel-heading Header params
   .panel-body
-    .row(style="margin-bottom: 5px")
+    .row.my-form-row(ng-repeat="(key, value) in headers")
+        .col-sm-1
+          a(href="#", ng-click="remove_header(key)") [X]
+        label.col-sm-2.control-label(for="{{ key }}") {{ key }}
+        .col-sm-3(id="#{{ key }}") {{ value }}
+
+    .row.my-form-row
+        .col-sm-2
+          strong Key
+        .col-sm-2
+          strong Value
+    .row.my-form-row
       .form-group
-        label.col-sm-2.control-label(for="token") API Token
-        .col-sm-4
-          input.form-control(type="text", id="token", name="token", ng-model="rc.api_token")
-    .row(style="margin-bottom: 5px")
-        label.col-sm-2.control-label(for="accept_version") API Accept-Version
-        .col-sm-4
-          input.form-control(type="text", id="accept_version", name="accept_version", ng-model="rc.api_version")
+        .col-sm-2
+          input#header_key.form-control(name="header_key")
+        .col-sm-2
+          input#header_value.form-control(name="header_value")
+        .col-sm-2
+          button#add_header.btn.btn-primary(ng-click="add_header()") Add

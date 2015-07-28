@@ -2,14 +2,18 @@ $font-stack:    Helvetica, sans-serif;
 $primary-color: #333;
 
 body {
-  font: 100% $font-stack;
-  color: $primary-color;
+  font  : $font-stack;
+  color : $primary-color;
 
   h1{
     text-transform  : uppercase;
     color           : #555;
     text-align      : center;
   }
+}
+
+.my-form-row{
+  margin-bottom : 5px;
 }
 
 #footer{

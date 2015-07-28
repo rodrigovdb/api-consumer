@@ -1,10 +1,10 @@
-.row(style="margin-bottom: 5px", ng-app="request_destination" ng-controller="RequestDestinationController as rd")
+.row.my-form-row(ng-controller="RequestDestination")
   .form-group
     label.col-sm-2.control-label(for="url") API URL
     .col-sm-7
-      input.form-control(type="text", id="url", name="url", ng-model="rd.url")
+      input.form-control(type="text", id="url", name="url", ng-model="url")
 
-    label.col-sm-1.control-label(for="url") Method
+    label.col-sm-1.control-label(for="method") Method
     .col-sm-1
-      select(id="method", name="method", ng-model="rd.method")
-        option(ng-repeat="m in rd.methods") {{ m }}
+      select(id="method", name="method", ng-model="method")
+        option(ng-repeat="m in methods") {{ m }}
