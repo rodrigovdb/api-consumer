@@ -19,6 +19,7 @@ var paths = {
   images    : './src/images/*',
 
   jquery        : './bower_components/jquery/dist/jquery.min.js',
+  angular       : './bower_components/angular/angular.min.js',
   bootstrap_js  : './bower_components/bootstrap/dist/js/bootstrap.min.js',
   bootstrap_css : './bower_components/bootstrap/dist/css/*.min.css'
 }
@@ -41,12 +42,14 @@ gulp.task('sass', function(){
 gulp.task('coffee', function(){
   gulp.src([
         paths.jquery,
+        paths.angular,
         paths.bootstrap_js,
         paths.coffee,
       ])
       .pipe(gulpif(/\.coffee$/, coffee({bare: true})))
       .pipe(order([
         'jquery.min.js',
+        'angular.min.js',
         'bootstrap.min.js',
         'src/coffee/*.coffee'
       ]))

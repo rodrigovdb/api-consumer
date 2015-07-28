@@ -1,21 +1,11 @@
-.row(style="margin-bottom: 5px")
+.row(style="margin-bottom: 5px", ng-app="request_destination" ng-controller="RequestDestinationController as rd")
   .form-group
     label.col-sm-2.control-label(for="url") API URL
     .col-sm-7
-      input.form-control(type="text", id="url", name="url")
+      input.form-control(type="text", id="url", name="url", ng-model="rd.url")
 
     label.col-sm-1.control-label(for="url") Method
     .col-sm-1
-      select(id="method", name="method")
-        option(value="GET")     GET
-        option(value="POST")    POST
-        option(value="PUT")     PUT
-        //option(value="PATCH")   PATCH
-        //option(value="DELETE")  DELETE
-        //option(value="COPY")    COPY
-        //option(value="HEAD")    HEAD
-        //option(value="OPTIONS") OPTIONS
-        //option(value="LINK")    LINK
-        //option(value="UNLINK")  UNLINK
-        //option(value="PURGE")   PURGE
-
+      select(id="method", name="method", ng-model="rd.method")
+        option(ng-repeat="m in rd.methods")
+          {{ m }}
