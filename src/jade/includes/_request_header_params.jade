@@ -1,11 +1,12 @@
 .panel.panel-default(ng-controller="RequestHeader")
   .panel-heading Header params
   .panel-body
-    .row.my-form-row(ng-repeat="(key, value) in headers")
+    .row.my-form-row(ng-repeat="(key, value) in header_params")
         .col-sm-1
-          a(href="#", ng-click="remove_header(key)") [X]
-        label.col-sm-2.control-label(for="{{ key }}") {{ key }}
-        .col-sm-3(id="#{{ key }}") {{ value }}
+          a(href="#", ng-click="remove_header_param(key)") [X]
+        label.col-sm-2.control-label.header_label(for="{{ key }}") {{ key }}
+        .col-sm-3.header_value(id="#{{ key }}") {{ value }}
+        input(type="hidden", name="headers[]", value="{{ create_json(key, value) }}")
 
     .row.my-form-row
         .col-sm-2
@@ -15,8 +16,8 @@
     .row.my-form-row
       .form-group
         .col-sm-2
-          input#header_key.form-control(name="header_key")
+          input#header_param_key.form-control(name="header_param_key")
         .col-sm-2
-          input#header_value.form-control(name="header_value")
+          input#header_param_value.form-control(name="header_param_value")
         .col-sm-2
-          button#add_header.btn.btn-primary(ng-click="add_header()") Add
+          button#add_header_param.btn.btn-primary(ng-click="add_header_param()") Add

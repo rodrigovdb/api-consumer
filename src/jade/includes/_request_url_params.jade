@@ -1,0 +1,23 @@
+.panel.panel-default(ng-controller="RequestUrl")
+  .panel-heading Url params
+  .panel-body
+    .row.my-form-row(ng-repeat="(key, value) in url_params")
+        .col-sm-1
+          a(href="#", ng-click="remove_url_param(key)") [X]
+        label.col-sm-2.control-label(for="{{ key }}") {{ key }}
+        .col-sm-3(id="#{{ key }}") {{ value }}
+        input(type="hidden", name="urls[]", value="{{ create_json(key, value) }}")
+
+    .row.my-form-row
+        .col-sm-2
+          strong Key
+        .col-sm-2
+          strong Value
+    .row.my-form-row
+      .form-group
+        .col-sm-2
+          input#url_param_key.form-control(name="url_param_key")
+        .col-sm-2
+          input#url_param_value.form-control(name="url_param_value")
+        .col-sm-2
+          button#add_url_param.btn.btn-primary(ng-click="add_url_param()") Add

@@ -1,14 +1,19 @@
 extends layouts/main.jade
 
 block content
-  .row
+  .row(ng-controller="Index")
     .col-md-2
     .col-md-8
       h1 My API Client
 
       include includes/_request_destination.jade
       include includes/_request_header_params.jade
-      include includes/_accordion_with_two_forms.jade
+      include includes/_request_url_params.jade
+      include includes/_request_body_params.jade
+      //include includes/_accordion_with_two_forms.jade
+
+      div(ng-controller="Index")
+        button.btn.btn-primary(ng-click="send_request()") Send
 
       #response.panel-footer(style='display: none')
       #loading(style='text-align: center; display: none')
