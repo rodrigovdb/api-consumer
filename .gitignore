@@ -1,6 +1,7 @@
 .vagrant/
 .publish/
 node_modules/
+bower_components/
 src/components/
 build/
 .sass-cache/

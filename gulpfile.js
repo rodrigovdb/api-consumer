@@ -6,25 +6,51 @@ var gulp        = require('gulp'),
     coffee      = require('gulp-coffee'),
     jade        = require('gulp-jade'),
     browserSync = require('browser-sync'),
-    ghPages     = require('gulp-gh-pages');
+    ghPages     = require('gulp-gh-pages'),
+    concat      = require('gulp-concat'),
+    order       = require('gulp-order'),
+    gulpif      = require('gulp-if');
 
 var paths = {
-  sass              : './src/sass/*.scss',
-  coffee            : './src/coffee/*.coffee',
-  jade              : './src/jade/*.jade',
+  sass      : './src/sass/*.scss',
+  coffee    : './src/coffee/*.coffee',
+  jade      : './src/jade/*.jade',
 
-  images            : './src/images/*'
+  images    : './src/images/*',
+
+  jquery        : './bower_components/jquery/dist/jquery.min.js',
+  bootstrap_js  : './bower_components/bootstrap/dist/js/bootstrap.min.js',
+  bootstrap_css : './bower_components/bootstrap/dist/css/*.min.css'
 }
 
 gulp.task('sass', function(){
-    gulp.src(paths.sass)
-        .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
+    gulp.src([
+          paths.bootstrap_css,
+          paths.sass
+        ])
+        .pipe(gulpif(/\.scss$/, sass({ style: 'compressed' })))
+        .pipe(order([
+          'bootstrap.min.css',
+          'bootstrap-theme.min.css',
+          'src/sass/*.scss'
+        ]))
+        .pipe(concat('./main.css'))
         .pipe(gulp.dest('./build/css/'));
 });
 
 gulp.task('coffee', function(){
-  gulp.src(paths.coffee)
-      .pipe(coffee({bare: true}).on('error', gutil.log))
+  gulp.src([
+        paths.jquery,
+        paths.bootstrap_js,
+        paths.coffee,
+      ])
+      .pipe(gulpif(/\.coffee$/, coffee({bare: true})))
+      .pipe(order([
+        'jquery.min.js',
+        'bootstrap.min.js',
+        'src/coffee/*.coffee'
+      ]))
+      .pipe(concat('./main.js'))
       .pipe(gulp.dest('./build/js/'))
 });
 
