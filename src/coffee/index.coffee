@@ -7,28 +7,13 @@ restfull.controller 'Index', ($scope) ->
     $('#response').hide()
     $('#loading').show()
 
-    url     = $('#url').val()
     method  = $('#method').val()
-
-    header_params = {}
-    body_params   = {}
-    url_params    = {}
-
-    $('input[type=hidden][name=headers\\[\\]]').each ->
-      item  = $.parseJSON($(this).val())
-      header_params[item.key] = item.value
-      return
-
-    $('input[type=hidden][name=bodies\\[\\]]').each ->
-      item  = $.parseJSON($(this).val())
-      body_params[item.key] = item.value
-      return
 
     $.ajax
       type        : method
-      url         : url
-      headers     : header_params
-      data        : JSON.stringify(body_params)
+      url         : url_params()
+      headers     : header_params()
+      data        : JSON.stringify(body_params())
       dataType    : 'json'
       contentType : 'application/json'
       cache       : false
@@ -47,5 +32,34 @@ restfull.controller 'Index', ($scope) ->
         return
 
     return
+
+  # Compose url params
+  url_params  = () ->
+    url         = $('#url').val()
+    url_params  = {}
+
+    return url
+
+  # Compose header params
+  header_params = () ->
+    params = {}
+    $('input[type=hidden][name=headers\\[\\]]').each ->
+      item  = $.parseJSON($(this).val())
+      params[item.key] = item.value
+
+      return
+
+    return params
+
+  # Compose body params
+  body_params = () ->
+    params   = {}
+    $('input[type=hidden][name=bodies\\[\\]]').each ->
+      item  = $.parseJSON($(this).val())
+      params[item.key] = item.value
+
+      return
+
+    return params
 
   return
