@@ -9,6 +9,9 @@ restfull.controller 'RequestUrl', ($scope) ->
       return
 
     $scope.url_params[key] = value
+
+    $('#url_param_key').val(null)
+    $('#url_param_value').val(null)
     return
 
   $scope.remove_url_param = (id) ->
