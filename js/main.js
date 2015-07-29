@@ -412,6 +412,8 @@ restfull.controller('RequestUrl', function($scope) {
       return;
     }
     $scope.url_params[key] = value;
+    $('#url_param_key').val(null);
+    $('#url_param_value').val(null);
   };
   $scope.remove_url_param = function(id) {
     delete $scope.url_params[id];
