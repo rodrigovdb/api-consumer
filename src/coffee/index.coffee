@@ -34,14 +34,14 @@ restfull.controller 'Index', ($scope) ->
     return
 
   # Compose url params
-  url_params  = () ->
-    url         = $('#url').val()
-    url_params  = {}
+  url_params   = ->
+    url     = $('#url').val()
+    params  = {}
 
     return url
 
   # Compose header params
-  header_params = () ->
+  header_params  = ->
     params = {}
     $('input[type=hidden][name=headers\\[\\]]').each ->
       item  = $.parseJSON($(this).val())
@@ -52,7 +52,7 @@ restfull.controller 'Index', ($scope) ->
     return params
 
   # Compose body params
-  body_params = () ->
+  body_params  = ->
     params   = {}
     $('input[type=hidden][name=bodies\\[\\]]').each ->
       item  = $.parseJSON($(this).val())
