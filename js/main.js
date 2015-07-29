@@ -306,6 +306,7 @@ var restfull;
 restfull = angular.module('restfull', []);
 
 restfull.controller('Index', function($scope) {
+  var body_params, header_params, url_params;
   $scope.create_json = function(p_key, p_value) {
     return {
       key: p_key,
@@ -313,29 +314,15 @@ restfull.controller('Index', function($scope) {
     };
   };
   $scope.send_request = function() {
-    var body_params, header_params, method, url, url_params;
+    var method;
     $('#response').hide();
     $('#loading').show();
-    url = $('#url').val();
     method = $('#method').val();
-    header_params = {};
-    body_params = {};
-    url_params = {};
-    $('input[type=hidden][name=headers\\[\\]]').each(function() {
-      var item;
-      item = $.parseJSON($(this).val());
-      header_params[item.key] = item.value;
-    });
-    $('input[type=hidden][name=bodies\\[\\]]').each(function() {
-      var item;
-      item = $.parseJSON($(this).val());
-      body_params[item.key] = item.value;
-    });
     $.ajax({
       type: method,
-      url: url,
-      headers: header_params,
-      data: JSON.stringify(body_params),
+      url: url_params(),
+      headers: header_params(),
+      data: JSON.stringify(body_params()),
       dataType: 'json',
       contentType: 'application/json',
       cache: false,
@@ -353,6 +340,32 @@ restfull.controller('Index', function($scope) {
         console.info(data);
       }
     });
+  };
+  url_params = function() {
+    var params, url;
+    url = $('#url').val();
+    params = {};
+    return url;
+  };
+  header_params = function() {
+    var params;
+    params = {};
+    $('input[type=hidden][name=headers\\[\\]]').each(function() {
+      var item;
+      item = $.parseJSON($(this).val());
+      params[item.key] = item.value;
+    });
+    return params;
+  };
+  body_params = function() {
+    var params;
+    params = {};
+    $('input[type=hidden][name=bodies\\[\\]]').each(function() {
+      var item;
+      item = $.parseJSON($(this).val());
+      params[item.key] = item.value;
+    });
+    return params;
   };
 });
 
