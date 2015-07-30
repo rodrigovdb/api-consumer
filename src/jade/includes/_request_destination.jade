@@ -6,5 +6,5 @@
 
     label.col-sm-1.control-label(for="method") Method
     .col-sm-1
-      select(id="method", name="method", ng-model="method")
+      select.form-control(id="method", name="method", ng-model="method")
         option(ng-repeat="m in methods") {{ m }}
