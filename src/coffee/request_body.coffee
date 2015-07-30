@@ -1,5 +1,7 @@
 restfull.controller 'RequestBody', ($scope) ->
-  $scope.body_params = {}
+  $scope.body_params = {
+    'imageUrl'  : 'https://angularjs.org/img/AngularJS-large.png',
+  }
 
   $scope.add_body_param = ->
     key   = $('#body_param_key').val()

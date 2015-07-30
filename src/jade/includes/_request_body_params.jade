@@ -1,23 +1,24 @@
 .panel.panel-default(ng-controller="RequestBody")
   .panel-heading Body params
   .panel-body
-    .row.my-form-row(ng-repeat="(key, value) in body_params")
-        .col-sm-1
-          a(href="#", ng-click="remove_body_param(key)") [X]
-        label.col-sm-2.control-label(for="{{ key }}") {{ key }}
-        .col-sm-3(id="#{{ key }}") {{ value }}
-        input(type="hidden", name="bodies[]", value="{{ create_json(key, value) }}")
+    form#form_body(name="form_body", action="#", method="POST", enctype="multipart/form-data", onsubmit="return false")
+      .row.my-form-row(ng-repeat="(key, value) in body_params")
+          .col-sm-1
+            a(href="#", ng-click="remove_body_param(key)") [X]
+          label.col-sm-2.control-label(for="{{ key }}") {{ key }}
+          .col-sm-3(id="#{{ key }}") {{ value }}
+          input(type="hidden", name="{{ key }}", value="{{ value }}")
 
-    .row.my-form-row
-        .col-sm-2
-          strong Key
-        .col-sm-2
-          strong Value
-    .row.my-form-row
-      .form-group
-        .col-sm-2
-          input#body_param_key.form-control(name="body_param_key")
-        .col-sm-2
-          input#body_param_value.form-control(name="body_param_value")
-        .col-sm-2
-          button#add_body_param.btn.btn-primary(ng-click="add_body_param()") Add
+      .row.my-form-row
+          .col-sm-2
+            strong Key
+          .col-sm-2
+            strong Value
+      .row.my-form-row
+        .form-group
+          .col-sm-2
+            input#body_param_key.form-control(name="body_param_key")
+          .col-sm-2
+            input#body_param_value.form-control(name="body_param_value")
+          .col-sm-2
+            a.btn.btn-primary(ng-click="add_body_param()") Add
