@@ -305,8 +305,29 @@ var restfull;
 
 restfull = angular.module('restfull', []);
 
-restfull.controller('Index', function($scope) {
-  var body_params, header_params, url_params;
+restfull.controller('Index', function($scope, $http) {
+  var body_params, content_type, header_params, make_request, url_params;
+  $scope.method = 'POST';
+  $scope.methods = ['GET', 'POST', 'PUT'];
+  $scope.file_field_name = null;
+  $scope.file_field_name_value = null;
+  $scope.show_body_params = false;
+  $scope.show_header_params = true;
+  $scope.header_button_class = 'active';
+  $scope.update_show_body_params = function(item) {
+    $scope.show_body_params = item !== 'GET';
+  };
+  $scope.update_show_header_params = function() {
+    $scope.show_header_params = !$scope.show_header_params;
+    if ($scope.show_header_params) {
+      $scope.header_button_class = 'active';
+    } else {
+      $scope.header_button_class = '';
+    }
+  };
+  $scope.update_file_field_name = function() {
+    $scope.file_field_name_value = $('#file_field_name').val();
+  };
   $scope.create_json = function(p_key, p_value) {
     return {
       key: p_key,
@@ -314,32 +335,65 @@ restfull.controller('Index', function($scope) {
     };
   };
   $scope.send_request = function() {
-    var method;
     $('#response').hide();
     $('#loading').show();
+    make_request();
+  };
+  make_request = function() {
+    var method;
     method = $('#method').val();
     $.ajax({
       type: method,
       url: url_params(),
       headers: header_params(),
-      data: JSON.stringify(body_params()),
+      data: body_params(),
       dataType: 'json',
-      contentType: 'application/json',
+      contentType: content_type(),
       cache: false,
       processData: false,
       success: function(data) {
-        $('#response').html('<h3>Your response is</h3>' + data);
+        $('#response').html('<h3>Your response is</h3>' + JSON.stringify(data));
         $('#loading').hide();
         $('#response').show();
         console.info(data);
       },
       error: function(data) {
-        $('#response').html('<h2>ERROR!</h2><h3>Your response is</h3>' + data);
+        $('#response').html('<h2>ERROR!</h2><h3>Your response is</h3>' + data.responseText);
         $('#loading').hide();
         $('#response').show();
         console.info(data);
       }
     });
+  };
+  body_params = function() {
+    var method, params;
+    method = $('#method').val();
+    if (method === 'GET') {
+      return;
+    }
+    if ($('#file_field_value').val() === '') {
+      params = {};
+      $.each($('#form_body').serializeArray(), function() {
+        if (this.name !== 'body_param_key' && this.name !== 'body_param_value' && this.name !== 'file_field_value') {
+          params[this.name] = this.value;
+        }
+      });
+      params = JSON.stringify(params);
+    } else {
+      params = new FormData(document.getElementById('form_body'));
+      params["delete"]('body_param_key');
+      params["delete"]('body_param_value');
+    }
+    return params;
+  };
+  content_type = function() {
+    var type;
+    type = '';
+    if ($('#file_field_value').val() === '') {
+      return 'application/json';
+    } else {
+      return false;
+    }
   };
   url_params = function() {
     var params, url;
@@ -357,20 +411,24 @@ restfull.controller('Index', function($scope) {
     });
     return params;
   };
-  body_params = function() {
-    var params;
-    params = {};
-    $('input[type=hidden][name=bodies\\[\\]]').each(function() {
-      var item;
-      item = $.parseJSON($(this).val());
-      params[item.key] = item.value;
-    });
-    return params;
-  };
 });
 
 restfull.controller('RequestBody', function($scope) {
   $scope.body_params = {};
+  $scope.show_file_row = false;
+  $scope.show_file_field_btn = true;
+  $scope.update_show_file_row = function(item) {
+    $scope.show_file_row = !$scope.show_file_row;
+  };
+  $scope.add_file_field = function() {
+    $scope.show_file_field_btn = false;
+    $scope.show_file_row = true;
+  };
+  $scope.remove_file_field = function() {
+    $scope.show_file_field_btn = true;
+    $scope.show_file_row = false;
+    $('#file_field_value').val(null);
+  };
   $scope.add_body_param = function() {
     var key, value;
     key = $('#body_param_key').val();
@@ -389,8 +447,6 @@ restfull.controller('RequestBody', function($scope) {
 
 restfull.controller('RequestDestination', function($scope) {
   $scope.url = 'http://localhost:9393/api/images';
-  $scope.method = 'POST';
-  $scope.methods = ['GET', 'POST', 'PUT'];
 });
 
 restfull.controller('RequestHeader', function($scope) {
