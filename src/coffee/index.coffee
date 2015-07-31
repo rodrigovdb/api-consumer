@@ -1,5 +1,5 @@
 restfull.controller 'Index', ($scope, $http) ->
-  $scope.method   = 'POST'
+  $scope.method   = 'GET'
   $scope.methods  = ['GET', 'POST', 'PUT']
   #$scope.methods  = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'COPY', 'HEAD', 'OPTIONS', 'LINK', 'UNLINK', 'PURGE'
 

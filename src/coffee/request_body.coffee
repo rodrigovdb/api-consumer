@@ -17,7 +17,7 @@ restfull.controller 'RequestBody', ($scope) ->
     $scope.show_file_field_btn  = true
     $scope.show_file_row        = false
     $('#file_field_value').val(null)
-    
+
     return
 
   $scope.add_body_param = ->
