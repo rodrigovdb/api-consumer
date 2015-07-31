@@ -307,7 +307,7 @@ restfull = angular.module('restfull', []);
 
 restfull.controller('Index', function($scope, $http) {
   var body_params, content_type, header_params, make_request, url_params;
-  $scope.method = 'POST';
+  $scope.method = 'GET';
   $scope.methods = ['GET', 'POST', 'PUT'];
   $scope.file_field_name = null;
   $scope.file_field_name_value = null;
@@ -446,15 +446,11 @@ restfull.controller('RequestBody', function($scope) {
 });
 
 restfull.controller('RequestDestination', function($scope) {
-  $scope.url = 'http://localhost:9393/api/images';
+  $scope.url = '';
 });
 
 restfull.controller('RequestHeader', function($scope) {
-  $scope.api_version = 'v1';
-  $scope.header_params = {
-    'XAuthToken': '1c5a08e37d302bc25450e71dd1a16763',
-    'Accept_Version': 'v1'
-  };
+  $scope.header_params = {};
   $scope.add_header_param = function() {
     var key, value;
     key = $('#header_param_key').val();
