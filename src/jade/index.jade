@@ -7,18 +7,19 @@ block content
       h1 My API Client
 
       include includes/_request_destination.jade
-      include includes/_request_header_params.jade
+      div(ng-if="show_header_params")
+        include includes/_request_header_params.jade
       //include includes/_request_url_params.jade
-      include includes/_request_body_params.jade
-      //include includes/_accordion_with_two_forms.jade
+      div(ng-if="show_body_params")
+        include includes/_request_body_params.jade
 
       div(ng-controller="Index")
         button.btn.btn-primary(ng-click="send_request()") Send
 
-      #response.panel-footer(style='display: none')
-      #loading(style='text-align: center; display: none')
-        h4 Loading... just wait
-
-        img(src='img/clipboard31.gif')
-
+      .panel.panel-default
+        .panel-heading Response
+        #loading.pannel-body(style='text-align: center; display: none')
+          h4 Loading... just wait
+          img(src='img/clipboard31.gif')
+        #response.panel-footer(style='display: none')
     .col-md-2

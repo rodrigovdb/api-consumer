@@ -21,13 +21,18 @@
             input#body_param_key.form-control(name="body_param_key")
           .col-sm-4
             input#body_param_value.form-control(name="body_param_value")
-          .col-sm-2
+          .col-sm-3
             a.btn.btn-primary(ng-click="add_body_param()") Add
-      .row.my-form-row
+            span(ng-if="show_file_field_btn")
+              | &nbsp; or &nbsp;
+              a.btn.btn-primary(ng-click="add_file_field()") Add file field
+      #file_row.row.my-form-row(ng-if="show_file_row")
         .form-group
           .col-sm-1
           .col-sm-2
             strong File
           .col-sm-4
-            input#file_field.form-control(type="file", name="file")
+            input#file_field_value.form-control(type="file", name="file")
+          .col-sm-3
+            a.btn.btn-primary(ng-click="remove_file_field()") Remove file field
 

@@ -1,10 +1,13 @@
 .row.my-form-row(ng-controller="RequestDestination")
   .form-group
-    label.col-sm-2.control-label(for="url") API URL
-    .col-sm-7
+    label.col-sm-1.control-label(for="url") API URL
+    .col-sm-8
       input.form-control(type="text", id="url", name="url", ng-model="url")
 
     label.col-sm-1.control-label(for="method") Method
     .col-sm-1
-      select.form-control(id="method", name="method", ng-model="method")
+      select.form-control(id="method", name="method", ng-model="method" ng-init="update_show_body_params(method)" ng-change="update_show_body_params(method)")
         option(ng-repeat="m in methods") {{ m }}
+    .col-sm-1
+      a.btn.btn-default(href="#", ng-click="update_show_header_params()", ng-class="header_button_class")
+        | Headers
