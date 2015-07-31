@@ -3,6 +3,9 @@ restfull.controller 'Index', ($scope, $http) ->
   $scope.methods  = ['GET', 'POST', 'PUT']
   #$scope.methods  = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'COPY', 'HEAD', 'OPTIONS', 'LINK', 'UNLINK', 'PURGE'
 
+  $scope.file_field_name        = null
+  $scope.file_field_name_value  = null
+
   $scope.show_body_params     = false
   $scope.show_header_params   = true
   $scope.header_button_class  = 'active'
@@ -17,6 +20,10 @@ restfull.controller 'Index', ($scope, $http) ->
       $scope.header_button_class  = 'active'
     else
       $scope.header_button_class  = ''
+    return
+
+  $scope.update_file_field_name = ->
+    $scope.file_field_name_value  = $('#file_field_name').val()
     return
 
   $scope.create_json = (p_key, p_value) ->

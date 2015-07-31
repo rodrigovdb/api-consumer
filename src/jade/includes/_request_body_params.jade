@@ -30,9 +30,9 @@
         .form-group
           .col-sm-1
           .col-sm-2
-            strong File
+            input#file_field_name.form-control(type="text", name="file_field_name", ng-model="file_field_name", ng-change="update_file_field_name()")
           .col-sm-4
-            input#file_field_value.form-control(type="file", name="file")
+            input#file_field_value.form-control(type="file", name="{{ file_field_name_value }}")
           .col-sm-3
             a.btn.btn-primary(ng-click="remove_file_field()") Remove file field
 
