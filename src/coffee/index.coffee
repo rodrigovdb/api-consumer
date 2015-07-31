@@ -1,5 +1,4 @@
 restfull.controller 'Index', ($scope, $http) ->
-
   $scope.create_json = (p_key, p_value) ->
     return { key: p_key, value: p_value }
 
@@ -7,44 +6,58 @@ restfull.controller 'Index', ($scope, $http) ->
     $('#response').hide()
     $('#loading').show()
 
-    request = $http(compose_request())
-
-    request.success (html) ->
-      $('#response').html '<h3>Your response is</h3>' + JSON.stringify(html)
-      $('#loading').hide()
-      $('#response').show()
-      return
-
-    request.error (html) ->
-      $('#response').html '<h2>ERROR!</h2><h3>Your response is</h3>' + JSON.stringify(html)
-      $('#loading').hide()
-      $('#response').show()
-      return
+    make_request()
 
     return
 
-  # Compose request params
-  compose_request = ->
+  make_request = ->
     method  = $('#method').val()
-    request     = {
-      method  : method,
-      url     : url_params(),
-      headers : header_params(),
-      data    : body_params()
-    }
 
-    return request
-
-  # Compose body params
-  body_params = ->
-    params = {}
-    $.each $('#form_body').serializeArray(), ->
-      if(@name != 'body_param_key' && @name != 'body_param_value')
-        params[@name] = @value
+    $.ajax
+      type        : method
+      url         : url_params()
+      headers     : header_params()
+      data        : body_params()
+      dataType    : 'json'
+      contentType : content_type()
+      cache       : false
+      processData : false
+      success     : (data) ->
+        $('#response').html '<h3>Your response is</h3>' + JSON.stringify data
+        $('#loading').hide()
+        $('#response').show()
+        console.info data
         return
-      return
+      error       : (data) ->
+        $('#response').html '<h2>ERROR!</h2><h3>Your response is</h3>' + data.responseText
+        $('#loading').hide()
+        $('#response').show()
+        console.info data
+        return
 
-    return params
+    return
+
+  body_params = ->
+    if $('#file_field').val() == ''
+      params = {}
+      $.each $('#form_body').serializeArray(), ->
+        if @name != 'body_param_key' and @name != 'body_param_value' and @name != 'file_field'
+          params[@name] = @value
+        return
+      params = JSON.stringify(params)
+    else
+      params = new FormData(document.getElementById('form_body'))
+      params.delete 'body_param_key'
+      params.delete 'body_param_value'
+    params
+
+  content_type  = ->
+    type  = ''
+    if($('#file_field').val() == '')
+      return 'application/json'
+    else
+      return false
+    return
 
   # Compose url params
   url_params   = ->
@@ -55,7 +68,7 @@ restfull.controller 'Index', ($scope, $http) ->
 
   # Compose header params
   header_params  = ->
-    params = {}
+    params  = {}
     $('input[type=hidden][name=headers\\[\\]]').each ->
       item  = $.parseJSON($(this).val())
       params[item.key] = item.value
